@@ -152,6 +152,7 @@ class EvictingMap {
       *map_val.value = value;
     }
     CheckEvict();
+    return true;
   }
   const V* Get(const K& key) {
     auto it = _map.find(key);
