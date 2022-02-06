@@ -154,7 +154,7 @@ class EvictingMap {
     CheckEvict();
     return true;
   }
-  const V* Get(const K& key) {
+  V* Get(const K& key) {
     auto it = _map.find(key);
     if (it == _map.end()) {
       //没找到的情况
