@@ -2,6 +2,11 @@
 #include <iostream>
 #include "evicting_map.hpp"
 
+void fun(const std::string& key, const std::string& value)
+{
+    cout<<"call_back:"<<"key:"<<key<<", value:" << value << std::endl;
+}
+
 int main()
 {
     EvictingMap<std::string, std::string> M(5, 2);
