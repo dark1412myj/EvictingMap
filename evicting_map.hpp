@@ -126,6 +126,29 @@ public:
         return _list.Size();
     }
 
+    V& operator [] (const K& key) {
+        auto& map_val = _map[key];
+        if (map_val.link_node == nullptr)
+        {
+            LinkNode* node(new LinkNode());
+            node->it = _map.find(key);
+            _list.Push(node);
+            map_val.link_node = node;
+        }
+        else
+        {
+            LinkNode* node = map_val.link_node;
+            _list.Erase(node);
+            _list.Push(node);
+        }
+        if (map_val.value == nullptr)
+        {
+            map_val.value.reset(new V());
+        }
+        CheckEvict();
+        return *map_val.value;
+    }
+
     bool Put(const K& key, const V& value)
     {
         auto& map_val = _map[key];
@@ -207,7 +230,3 @@ private:
     uint32_t clear_size;
     std::function<void(const K&, const V&)> call_back;
 };
-void fun(const std::string& key, const std::string& value)
-{
-    cout<<"call_back:"<<"key:"<<key<<", value:" << value << std::endl;
-}
